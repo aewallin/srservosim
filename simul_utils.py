@@ -8,16 +8,15 @@ from scipy.optimize import curve_fit
 def linear_zeeman(B, zeeman_coeff=5.6):
     return B * zeeman_coeff
 
-
 def lineshape(delta, t, state_prep=False, center=0.):
     """Calculate theoretical lineshape from ideal Rabi flopping.
 
     Parameters
     ----------
     delta : scalar or np.array
-        Detunings for which calculate the lineshape value
+        Detunings for which calculate the lineshape value, in Hz
     t : scalar or np.array
-        Pulse length(s)
+        Pulse length, in seconds
     state_prep : bool, optional
         Flag for whether the ions have been state-prepped, yielding
         a different resulting max probability. Default: False
@@ -252,7 +251,7 @@ def run_BC_simulation(t,
                                                       eta_C[i-1]-eta_B[i-1]+FWHMS[0]/2.,
                                                       linecenter=-z_s,
                                                       tau_pi=tau_pi,
-                                                      laser_drift=0.)
+                                                      laser_drift=laser_drift)
         p_pR, f_cavity, delta_cavity = sampling_cycle(f_cavity, T_s, n_s,
                                                       eta_C[i-1]+eta_B[i-1]-FWHMS[1]/2.,
                                                       linecenter=z_s,
@@ -262,7 +261,7 @@ def run_BC_simulation(t,
                                                       eta_C[i-1]+eta_B[i-1]+FWHMS[1]/2.,
                                                       linecenter=z_s,
                                                       tau_pi=tau_pi,
-                                                      laser_drift=0.)
+                                                      laser_drift=laser_drift)
         p_mR, f_cavity, delta_cavity = sampling_cycle(f_cavity, T_s, n_s,
                                                       eta_C[i-1]-eta_B[i-1]-FWHMS[0]/2.,
                                                       linecenter=-z_s,
